@@ -27,14 +27,10 @@ function createServer() {
       return;
     }
 
-    const normalizedPath = url.pathname.slice(5);
+    let normalizedPath = url.pathname.slice(5);
 
     if (!normalizedPath) {
-      res.writeHead(200, { 'Content-Type': 'text/plain' });
-
-      res.end('hint message for routes not starting with /file/');
-
-      return;
+      normalizedPath = '/index.html';
     }
 
     const filePath = `./public${normalizedPath}`;
@@ -60,7 +56,11 @@ function createServer() {
         '.txt': 'text/plain',
       };
 
-      const mimeType = mimeTypes[ext] || 'application/octet-stream';
+      let mimeType = mimeTypes[ext] || 'application/octet-stream';
+
+      if (normalizedPath === '/index.html') {
+        mimeType = 'text/plain';
+      }
 
       res.writeHead(200, { 'Content-Type': mimeType });
 
