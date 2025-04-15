@@ -56,7 +56,11 @@ function createServer() {
         '.txt': 'text/plain',
       };
 
-      const mimeType = mimeTypes[ext] || 'application/octet-stream';
+      let mimeType = mimeTypes[ext] || 'application/octet-stream';
+
+      if (normalizedPath === '/index.html') {
+        mimeType = 'text/plain';
+      }
 
       res.writeHead(200, { 'Content-Type': mimeType });
 
