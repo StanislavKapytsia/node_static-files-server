@@ -17,7 +17,7 @@ function createServer() {
       return;
     }
 
-    const url = new URL(req.url, `http://${req.headers.host}`);
+    const url = new URL(REQUEST_URL, `http://${req.headers.host}`);
 
     if (!url.pathname.startsWith('/file')) {
       res.writeHead(400, { 'Content-Type': 'text/plain' });
